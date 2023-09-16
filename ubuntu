@@ -1,0 +1,29 @@
+#!/bin/bash
+
+function docker-run() {
+    docker run -it ariesr91/ubuntu su -l Arie-SR91
+}
+
+function docker-commit() {
+    read -p "Docker Id: " dockerid;
+    docker commit $dockerid ariesr91/ubuntu
+    docker container rm $dockerid
+    docker image rm ubuntu:latest
+    return 0
+}
+
+function docker-push() {
+    docker push ariesr91/ubuntu
+}
+
+case $1 in
+    login)
+        docker-run
+        ;;
+    commit)
+        docker-commit
+        ;;
+    push)
+        docker-push
+        ;;
+esac
